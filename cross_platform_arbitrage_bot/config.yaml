@@ -1,0 +1,124 @@
+# 跨平台套利机器人配置文件
+
+# Opinion.Trade 配置
+opinion:
+  host: "https://proxy.opinion.trade:8443"
+  api_key: "YOUR_OPINION_API_KEY"  # 从 docs.opinion.trade 申请
+  private_key: "YOUR_PRIVATE_KEY"   # 你的私钥
+  chain_id: 56                       # BNB Chain
+  rpc_url: "https://bsc-dataseed.binance.org"
+  multisig_address: "YOUR_MULTISIG_ADDRESS"
+
+# Polymarket 配置
+polymarket:
+  host: "https://clob.polymarket.com"
+  api_key: "YOUR_POLYMARKET_API_KEY"
+  private_key: "YOUR_PRIVATE_KEY"
+  chain_id: 137                      # Polygon
+  rpc_url: "https://polygon-rpc.com"
+
+# 套利策略配置
+strategy:
+  # 最小利润率 (扣除费用后)
+  min_profit_margin: 0.03  # 3%
+
+  # 单次交易最大金额 (USDT)
+  max_trade_size: 1000
+
+  # 单次交易最小金额 (USDT)
+  min_trade_size: 50
+
+  # 最大持仓 (USDT)
+  max_position_size: 10000
+
+  # 价格更新间隔 (秒)
+  price_update_interval: 1
+
+  # 市场扫描间隔 (秒)
+  market_scan_interval: 5
+
+  # 是否启用自动执行
+  auto_execute: true
+
+  # 滑点容忍度
+  slippage_tolerance: 0.01  # 1%
+
+# 费用配置
+fees:
+  opinion:
+    maker: 0.0      # Opinion maker费用为0
+    taker: 0.005    # Opinion taker费用约0.5%
+  polymarket:
+    maker: 0.0      # Polymarket maker费用为0
+    taker: 0.02     # Polymarket taker费用约2%
+
+# 风险管理
+risk_management:
+  # 每日最大亏损 (USDT)
+  max_daily_loss: 500
+
+  # 每日最大交易次数
+  max_daily_trades: 100
+
+  # 单个市场最大仓位
+  max_position_per_market: 2000
+
+  # 紧急止损开关
+  emergency_stop: false
+
+# 监控和告警
+monitoring:
+  # Slack webhook (可选)
+  slack_webhook: ""
+
+  # 日志级别: DEBUG, INFO, WARNING, ERROR
+  log_level: "INFO"
+
+  # 是否启用性能监控
+  enable_metrics: true
+
+  # 指标导出端口
+  metrics_port: 9090
+
+# 数据库配置 (可选，用于记录交易历史)
+database:
+  enabled: true
+  type: "sqlite"  # sqlite 或 postgresql
+  path: "data/arbitrage.db"  # SQLite路径
+  # PostgreSQL配置 (如果使用)
+  # host: "localhost"
+  # port: 5432
+  # database: "arbitrage"
+  # user: "postgres"
+  # password: "password"
+
+# 市场匹配规则
+market_matching:
+  # 市场标题相似度阈值
+  similarity_threshold: 0.85
+
+  # 是否启用模糊匹配
+  fuzzy_matching: true
+
+  # 手动匹配列表 (Opinion Market ID -> Polymarket Market ID)
+  manual_matches:
+    # 示例:
+    # "813": "polymarket_market_id_1"
+    # "814": "polymarket_market_id_2"
+
+# 性能优化
+performance:
+  # 并发请求数
+  max_concurrent_requests: 10
+
+  # 连接池大小
+  connection_pool_size: 20
+
+  # 请求超时 (秒)
+  request_timeout: 5
+
+  # 缓存启用
+  enable_cache: true
+
+  # 缓存TTL (秒)
+  cache_ttl: 60

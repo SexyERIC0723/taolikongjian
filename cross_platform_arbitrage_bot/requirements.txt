@@ -1,0 +1,69 @@
+# 跨平台套利机器人依赖
+
+# 异步和并发
+asyncio==3.4.3
+aiohttp==3.9.1
+aiodns==3.1.1
+
+# Web3和区块链
+web3==6.15.1
+eth-account==0.11.0
+eth-utils==2.3.1
+
+# 数据处理
+pandas==2.1.4
+numpy==1.26.2
+
+# 配置管理
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# 日志和监控
+loguru==0.7.2
+prometheus-client==0.19.0
+
+# 数据库
+sqlalchemy==2.0.25
+aiosqlite==0.19.0
+psycopg2-binary==2.9.9
+
+# API客户端
+requests==2.31.0
+websockets==12.0
+
+# 数据验证
+pydantic==2.5.3
+
+# 文本处理和匹配
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.23.0
+
+# 数学和统计
+scipy==1.11.4
+
+# 时间处理
+python-dateutil==2.8.2
+pytz==2023.3
+
+# 缓存
+cachetools==5.3.2
+
+# 加密
+cryptography==41.0.7
+
+# 通知
+slack-sdk==3.26.1
+
+# 测试 (开发环境)
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# 代码质量
+black==23.12.1
+flake8==6.1.0
+mypy==1.7.1
+
+# 性能分析
+line-profiler==4.1.1
+memory-profiler==0.61.0
