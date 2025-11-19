@@ -40,17 +40,28 @@ class PolymarketClient(BaseExchangeClient):
                 timeout=aiohttp.ClientTimeout(total=10)
             )
 
-            # 测试连接
-            async with self._session.get(f'{self.host}/ping') as resp:
-                if resp.status == 200:
-                    logger.info("✅ Polymarket客户端初始化成功")
-                    return True
-                else:
-                    logger.error(f"❌ Polymarket连接失败: {resp.status}")
-                    return False
+            # 测试连接 - 尝试获取市场数据
+            try:
+                url = f'{self.host}/markets'
+                async with self._session.get(url, params={'limit': 1}) as resp:
+                    if resp.status == 200:
+                        logger.info("✅ Polymarket客户端初始化成功")
+                        return True
+                    else:
+                        logger.error(f"❌ Polymarket API返回错误: {resp.status}")
+                        text = await resp.text()
+                        logger.debug(f"   响应内容: {text[:200]}")
+                        await self._session.close()
+                        return False
+            except aiohttp.ClientConnectorError as e:
+                logger.error(f"❌ 无法连接到Polymarket: {e}")
+                await self._session.close()
+                return False
 
         except Exception as e:
             logger.error(f"❌ Polymarket初始化错误: {e}")
+            if self._session:
+                await self._session.close()
             return False
 
     async def get_markets(self, limit: int = 100) -> List[Market]:
